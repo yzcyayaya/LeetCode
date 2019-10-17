@@ -1,1 +1,64 @@
 
+# include <stdio.h>
+# include <malloc.h>
+# include <stdlib.h>
+
+typedef struct Node 
+{
+	int date;
+	struct Node * pNext; 
+}NODE, * PNODE;
+
+PNODE create_list(void);
+void ergodic_list(PNODE pHead);
+int main(void)
+{
+	PNODE pHead; 
+	pHead = create_list();
+	ergodic_list(pHead);	
+	return 0;
+}
+PNODE create_list(void)
+{
+	int len, i, val;
+	
+	PNODE pHead = (PNODE)malloc(sizeof(NODE));
+	if (pHead == NULL)
+	{
+		printf("创建失败！");
+		exit(-1); 
+	 } 
+	 PNODE pTail = pHead;
+	 pTail->pNext = NULL;
+	printf("请输入你要生成链表的总长度:\n");
+	printf("len = ");
+	scanf("%d", &len);
+	
+	for (i=0; i<len; ++i)
+	{
+		printf("请输入第%d个的节点数据：\n", i+1);
+		scanf("%d", &val);
+		PNODE pNew = (PNODE)malloc(sizeof(NODE)); 
+		if (pHead == NULL)
+		{
+		printf("创建失败！");
+		exit(-1); 
+		 } 
+		 pNew->date = val;
+		 pTail->pNext = pNew;
+		 pNew->pNext = NULL;
+		 pTail = pNew;
+	}
+	return pHead;
+ } 
+ void ergodic_list(PNODE pHead)
+{
+	PNODE p = pHead->pNext ;
+	while(p != NULL)
+	{
+		printf("%d ", p->date );
+		p = p->pNext ;
+	}
+	printf("\n");
+	return;
+ } 
