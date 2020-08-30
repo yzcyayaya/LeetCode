@@ -1,0 +1,50 @@
+/*解题思路
+此处撰写解题思路
+详情看注释
+
+代码:
+*/
+class Solution {
+public int reverse(int x) {
+        if(x < Integer.MAX_VALUE && x > Integer.MIN_VALUE){
+            //首先将int转换成StringBuffer再找到-出现的索引值
+            StringBuffer strbuff1 = new StringBuffer(x + "");
+            //找到出现负号地方的索引值
+            int i = strbuff1.indexOf("-");
+            String num = null;
+            StringBuffer strbuff2 = null;
+            if (i >= 0) {
+                num = strbuff1.deleteCharAt(i).toString();  //把负号给干掉
+                strbuff2 = new StringBuffer(num).reverse(); //取反
+                strbuff2.insert(i, '-');    //加上负号
+            } else {        //如果是正数
+                num = strbuff1.toString();
+                strbuff2 = new StringBuffer(num).reverse();
+            }
+            String reverse = strbuff2.toString();
+            try{
+                int i1 = Integer.valueOf(Integer.parseInt(reverse));
+                if ( i1 <= Integer.MAX_VALUE && i1 >=  Integer.MIN_VALUE) {
+                    return Integer.parseInt(reverse); //直接返回取反并加上负号的数
+                } else
+                    return 0;
+            }catch (Exception e)//出现了超过int值的数,直接结束! 因为取反之后,有的数字甚至连long都不够存
+            {
+                return 0;
+            }
+
+            // 将反序后的数值转换成long整形,因为一旦反序可能会超出32位,然而long也会不够
+
+//            reverse.compareTo(Integer.valueOf(Integer.MIN_VALUE).toString());
+//            int i1 = reverse.compareTo(Integer.valueOf(Integer.MAX_VALUE).toString());
+//            int i2 = reverse.compareTo(Integer.valueOf(Integer.MIN_VALUE).toString());
+
+        }
+        return 0;
+    }
+}
+
+作者：yzcyayaya
+链接：https://leetcode-cn.com/problems/reverse-integer/solution/zheng-shu-qu-fan-by-yzcyayaya/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
