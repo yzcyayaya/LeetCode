@@ -1,0 +1,93 @@
+# include <stdio.h>
+# include <malloc.h>
+# include <stdlib.h>
+
+typedef struct Node
+{
+	int data;
+	struct Node * pNext;
+ }NODE,* PNODE;
+ 
+ PNODE create_list(void);
+ void ergodic_list(PNODE);
+ int length_list(PNODE);
+ void sort_list(PNODE);
+ int main(void)
+ {
+ 	PNODE pHead;
+ 	pHead = create_list();
+ 	ergodic_list(pHead);
+ 	length_list(pHead);
+ 	sort_list(pHead);
+ 	ergodic_list(pHead);
+ 	return 0;
+ }
+ PNODE create_list(void) //生成链表 
+ {
+ 	int len, val, i;
+ 	scanf("%d", &len);
+ 	PNODE pHead = (PNODE)malloc(sizeof(NODE));
+ 	if (NULL == pHead)
+ 	{
+ 		printf("false");
+ 		exit(-1);
+	 }
+	 PNODE pTail = pHead;
+	 pTail->pNext = NULL;
+	 for (i=0; i<len; ++i)
+	 {
+	 	scanf("%d", &val);
+	 	PNODE pNew = (PNODE)malloc(sizeof(NODE));
+		 if (NULL == pNew)
+		 {
+		 	printf("false");
+		 	exit(-1);
+		  } 
+		  pNew->data = val;
+		  pTail->pNext = pNew;
+		  pNew->pNext = NULL;
+		  pTail = pNew;
+	 }
+	 return pHead;
+ }
+ void ergodic_list(PNODE pHead) //便利链表 
+ {
+ 	PNODE p = pHead->pNext ;
+ 	while (NULL != p)
+ 	{
+ 		printf("%d ", p->data );
+ 		p = p->pNext ;
+	 }
+	 printf("\n");
+	 return;
+ }
+ int length_list(PNODE pHead) //链表的长度 
+ {
+ 	int len = 0;
+ 	PNODE p = pHead->pNext ;
+ 	
+ 	while (NULL != p)
+ 	{
+ 		len++;
+		 p = p->pNext ;	
+	 }
+	 return len;
+ }
+ void sort_list(PNODE pHead)
+ {
+ 	int len = length_list(pHead);
+	int i, j, t;
+ 	PNODE p, q;
+ 	for (i=0, p=pHead->pNext ; i<len-1; ++i,p=p->pNext )
+ 	{
+ 		for (j=i+1,q=p->pNext ; j<len; ++j, q=q->pNext )
+ 		{
+ 			if (p->data > q->data  )
+ 			{
+ 				t = p->data;
+ 				p->data  = q->data  ;
+ 				q->data  = t;
+			 }
+		 }
+	 }
+ }
